@@ -66,7 +66,7 @@ public class Carro implements Serializable {
   public void setNome(String nome) {
     try {
       if (nome == null) {
-        throw new IllegalArgumentException("Ano de fabricação inválido");
+        throw new IllegalArgumentException("Nome null");
       } else {
         this.nome = nome;
       }
@@ -82,7 +82,7 @@ public class Carro implements Serializable {
   public void setCategoria(String categoria) {
     try {
       if (categoria == null) {
-        throw new IllegalArgumentException("Ano de fabricação inválido");
+        throw new IllegalArgumentException("Categoria null");
       } else {
         this.categoria = categoria;
       }
@@ -114,7 +114,7 @@ public class Carro implements Serializable {
   public void setPreco(double preco) {
     try {
       if (preco < 0) {
-        throw new IllegalArgumentException("Ano de fabricação inválido");
+        throw new IllegalArgumentException("Preço inválido");
       } else {
         this.preco = preco;
       }

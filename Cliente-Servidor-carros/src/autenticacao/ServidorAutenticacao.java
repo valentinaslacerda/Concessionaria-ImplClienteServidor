@@ -1,16 +1,16 @@
-package cliente_servidor;
+package autenticacao;
 
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class Servidor {
+public class ServidorAutenticacao {
   public static void main(String[] args) {
     try {
-      ImplService skeleton = new ImplService();
+      ImplAutenticacaoService skeleton = new ImplAutenticacaoService();
 
       Registry registro = LocateRegistry.createRegistry(1099);
-      registro.rebind("Service", skeleton);
-      System.out.println("Servidor pronto para receber conexões...");
+      registro.rebind("AutenticacaoService", skeleton);
+      System.out.println("Servidor de autenticação pronto para receber conexões...");
 
     } catch (Exception e) {
       System.err.println("Erro no servidor: " + e.toString());

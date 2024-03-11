@@ -1,0 +1,7 @@
+usuário: user1 senha: 1234 acesso: funcionario
+usuário: user2 senha: 4321 acesso: cliente
+usuário: user3 senha: abcd acesso: funcionario
+usuário: user4 senha: 1111 acesso: cliente
+usuário: user5 senha: 2222 acesso: funcionario
+usuário: user6 senha: 3333 acesso: cliente
+usuário: user7 senha: 4444 acesso: cliente
