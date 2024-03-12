@@ -10,15 +10,26 @@ import java.util.List;
 import autenticacao.AutenticacaoService;
 import entidades.Carro;
 import entidades.Usuario;
+import gerenciamento_carros.BancoDadosService;
 
 public class ImplService extends UnicastRemoteObject implements Service {
-  AutenticacaoService stub;
+  AutenticacaoService stubAutenticacao;
+  BancoDadosService stubBanco;
 
   public ImplService() throws RemoteException {
     super();
     try {
       Registry registro = LocateRegistry.getRegistry("localhost", 1100);
-      stub = (AutenticacaoService) registro.lookup("AutenticacaoService");
+      stubAutenticacao = (AutenticacaoService) registro.lookup("AutenticacaoService");
+
+    } catch (Exception e) {
+      System.err.println("Erro no cliente: " + e.toString());
+      e.printStackTrace();
+    }
+
+    try {
+      Registry registro = LocateRegistry.getRegistry("localhost", 1101);
+      stubBanco = (BancoDadosService) registro.lookup("BancoDadosService");
 
     } catch (Exception e) {
       System.err.println("Erro no cliente: " + e.toString());
@@ -29,8 +40,11 @@ public class ImplService extends UnicastRemoteObject implements Service {
 
   @Override
   public void adicionarCarro(Carro carro) throws RemoteException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'adicionarCarro'");
+    try {
+      stubBanco.adicionarCarro(carro);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -40,13 +54,13 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
-  public Carro busCarroNome(String nome) throws RemoteException {
+  public Carro buscarCarroNome(String nome) throws RemoteException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'busCarroNome'");
   }
 
   @Override
-  public Carro busCarroRevavam(String renavam) throws RemoteException {
+  public Carro buscarCarroRevavam(String renavam) throws RemoteException {
     // TODO Auto-generated method stub
     throw new UnsupportedOperationException("Unimplemented method 'busCarroRevavam'");
   }
@@ -73,12 +87,11 @@ public class ImplService extends UnicastRemoteObject implements Service {
     String resultado;
 
     try {
-      resultado = stub.isAutenticado(usuario);
+      resultado = stubAutenticacao.isAutenticado(usuario);
       if (resultado != null) {
         return resultado;
       }
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 

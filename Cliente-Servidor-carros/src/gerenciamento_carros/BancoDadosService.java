@@ -1,13 +1,12 @@
-package cliente_servidor;
+package gerenciamento_carros;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import entidades.Carro;
-import entidades.Usuario;
 
-public interface Service extends Remote {
+public interface BancoDadosService extends Remote {
   void adicionarCarro(Carro carro) throws RemoteException;
 
   void removerCarro(String renavam) throws RemoteException;
@@ -22,5 +21,4 @@ public interface Service extends Remote {
 
   List<Carro> listarCarros() throws RemoteException;
 
-  String autenticarUser(Usuario usuario) throws RemoteException;
 }
