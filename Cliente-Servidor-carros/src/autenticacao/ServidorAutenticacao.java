@@ -8,7 +8,7 @@ public class ServidorAutenticacao {
     try {
       ImplAutenticacaoService skeleton = new ImplAutenticacaoService();
 
-      Registry registro = LocateRegistry.createRegistry(1099);
+      Registry registro = LocateRegistry.createRegistry(1100);
       registro.rebind("AutenticacaoService", skeleton);
       System.out.println("Servidor de autenticação pronto para receber conexões...");
 

@@ -18,9 +18,10 @@ public class Cliente {
       String inputSenha = scanner.nextLine();
       Usuario user = new Usuario(inputUser, inputSenha, null);
       String categoria = stub.autenticarUser(user);
+
       if (categoria == null) {
         System.out.println("Usuário não encontrado");
-      } else if (categoria == "funcionario") {
+      } else if (categoria.equals("funcionario")) {
         System.out.println("funcionario");
       } else {
         System.out.println("cliente");

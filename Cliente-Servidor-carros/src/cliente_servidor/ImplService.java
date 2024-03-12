@@ -1,5 +1,6 @@
 package cliente_servidor;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -11,8 +12,19 @@ import entidades.Carro;
 import entidades.Usuario;
 
 public class ImplService extends UnicastRemoteObject implements Service {
+  AutenticacaoService stub;
+
   public ImplService() throws RemoteException {
     super();
+    try {
+      Registry registro = LocateRegistry.getRegistry("localhost", 1100);
+      stub = (AutenticacaoService) registro.lookup("AutenticacaoService");
+
+    } catch (Exception e) {
+      System.err.println("Erro no cliente: " + e.toString());
+      e.printStackTrace();
+    }
+
   }
 
   @Override
@@ -59,18 +71,17 @@ public class ImplService extends UnicastRemoteObject implements Service {
   @Override
   public String autenticarUser(Usuario usuario) throws RemoteException {
     String resultado;
-    try {
-      Registry registro = LocateRegistry.getRegistry("localhost");
-      AutenticacaoService stub = (AutenticacaoService) registro.lookup("AutenticacaoService");
 
+    try {
       resultado = stub.isAutenticado(usuario);
       if (resultado != null) {
         return resultado;
       }
-    } catch (Exception e) {
-      System.err.println("Erro no cliente: " + e.toString());
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
       e.printStackTrace();
     }
+
     return null;
   }
 
