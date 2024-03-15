@@ -3,27 +3,23 @@ package entidades;
 import java.io.Serializable;
 
 public class Carro implements Serializable {
-  private static final long serialVersionUID = 1L;
+  private static final long serialVersionUID = 2L;
   private String renavam;
   private String placa;
   private String nome;
   private String categoria;
   private int anoFab;
   private double preco;
+  private int qtd;
 
-  public Carro(String renavam, String placa, String nome, String categoria, int anoFab, double preco) {
+  public Carro(String renavam, String placa, String nome, String categoria, int anoFab, double preco, int qtd) {
     setRenavam(renavam);
     setPlaca(placa);
     setNome(nome);
     setCategoria(categoria);
     setAnoFab(anoFab);
     setPreco(preco);
-  }
-
-  @Override
-  public int hashCode() {
-    int hash = renavam.hashCode();
-    return Math.floorMod(hash, 1999);
+    setQtd(qtd);
   }
 
   public String getRenavam() {
@@ -117,6 +113,22 @@ public class Carro implements Serializable {
         throw new IllegalArgumentException("Preço inválido");
       } else {
         this.preco = preco;
+      }
+    } catch (IllegalArgumentException e) {
+      System.out.println(e.getMessage());
+    }
+  }
+
+  public int getQtd() {
+    return qtd;
+  }
+
+  public void setQtd(int qtd) {
+    try {
+      if (qtd < 0) {
+        throw new IllegalArgumentException("Quantidade inválida");
+      } else {
+        this.qtd = qtd;
       }
     } catch (IllegalArgumentException e) {
       System.out.println(e.getMessage());

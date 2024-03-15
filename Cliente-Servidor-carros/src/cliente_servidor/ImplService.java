@@ -39,41 +39,47 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
-  public void adicionarCarro(Carro carro) throws RemoteException {
+  public String adicionarCarro(Carro carro) throws RemoteException {
     try {
-      stubBanco.adicionarCarro(carro);
+      return stubBanco.adicionarCarro(carro);
     } catch (Exception e) {
       e.printStackTrace();
     }
+    return null;
   }
 
   @Override
-  public void removerCarro(String renavam) throws RemoteException {
-    // TODO Auto-generated method stub
-    throw new UnsupportedOperationException("Unimplemented method 'removerCarro'");
+  public String removerCarro(String renavam) throws RemoteException {
+    try {
+      return stubBanco.removerCarro(renavam);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    return null;
+
   }
 
   @Override
   public Carro buscarCarroNome(String nome) throws RemoteException {
-    // TODO Auto-generated method stub
+
     throw new UnsupportedOperationException("Unimplemented method 'busCarroNome'");
   }
 
   @Override
   public Carro buscarCarroRevavam(String renavam) throws RemoteException {
-    // TODO Auto-generated method stub
+
     throw new UnsupportedOperationException("Unimplemented method 'busCarroRevavam'");
   }
 
   @Override
   public Carro alterarCarro(Carro carro) throws RemoteException {
-    // TODO Auto-generated method stub
+
     throw new UnsupportedOperationException("Unimplemented method 'alterarCarro'");
   }
 
   @Override
   public int checarQtd() throws RemoteException {
-    // TODO Auto-generated method stub
+
     throw new UnsupportedOperationException("Unimplemented method 'checarQtd'");
   }
 

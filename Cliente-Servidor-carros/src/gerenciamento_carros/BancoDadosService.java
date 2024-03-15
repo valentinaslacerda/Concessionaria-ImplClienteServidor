@@ -7,9 +7,9 @@ import java.util.List;
 import entidades.Carro;
 
 public interface BancoDadosService extends Remote {
-  void adicionarCarro(Carro carro) throws RemoteException;
+  String adicionarCarro(Carro carro) throws RemoteException;
 
-  void removerCarro(String renavam) throws RemoteException;
+  String removerCarro(String renavam) throws RemoteException;
 
   Carro buscarCarroNome(String nome) throws RemoteException;
 

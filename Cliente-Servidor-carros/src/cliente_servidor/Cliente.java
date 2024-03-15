@@ -45,26 +45,31 @@ public class Cliente {
                 break;
               case 1:
                 System.out.println("Nome do carro: ");
-                String nome = scanner.nextLine();
+                String nome = scanner.next();
 
                 System.out.println("Categoria: ");
-                String categoria = scanner.nextLine();
+                String categoria = scanner.next();
 
                 System.out.println("Renavam: ");
-                String renavam = scanner.nextLine();
+                String renavam = scanner.next();
 
                 System.out.println("Placa: ");
-                String placa = scanner.nextLine();
+                String placa = scanner.next();
 
                 System.out.println("Ano de fabricação: ");
                 int anoFab = scanner.nextInt();
 
                 System.out.println("Preço: ");
                 double preco = scanner.nextDouble();
-                Carro carro = new Carro(renavam, placa, nome, categoria, anoFab, preco);
-                stub.adicionarCarro(carro);
+                Carro carro = new Carro(renavam, placa, nome, categoria, anoFab, preco, 1);
+                System.out.println(stub.adicionarCarro(carro));
                 break;
 
+              case 2:
+                System.out.println("Renavam: ");
+                String renavamRemover = scanner.next();
+                System.out.println(stub.removerCarro(renavamRemover));
+                break;
               default:
                 break;
             }
