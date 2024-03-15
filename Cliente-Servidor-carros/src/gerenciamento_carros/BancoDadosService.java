@@ -2,7 +2,7 @@ package gerenciamento_carros;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.ArrayList;
 
 import entidades.Carro;
 
@@ -19,6 +19,6 @@ public interface BancoDadosService extends Remote {
 
   int checarQtd() throws RemoteException;
 
-  List<Carro> listarCarros() throws RemoteException;
+  ArrayList<Carro> listarCarros() throws RemoteException;
 
 }

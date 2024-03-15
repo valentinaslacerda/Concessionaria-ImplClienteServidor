@@ -5,8 +5,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.List;
-
+import java.util.ArrayList;
 import autenticacao.AutenticacaoService;
 import entidades.Carro;
 import entidades.Usuario;
@@ -84,8 +83,8 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
-  public List<Carro> listarCarros() throws RemoteException {
-    throw new UnsupportedOperationException("Unimplemented method 'listarCarros'");
+  public ArrayList<Carro> listarCarros() throws RemoteException {
+    return stubBanco.listarCarros();
   }
 
   @Override

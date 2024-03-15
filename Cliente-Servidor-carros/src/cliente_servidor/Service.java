@@ -2,7 +2,7 @@ package cliente_servidor;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.List;
+import java.util.ArrayList;
 
 import entidades.Carro;
 import entidades.Usuario;
@@ -20,7 +20,7 @@ public interface Service extends Remote {
 
   int checarQtd() throws RemoteException;
 
-  List<Carro> listarCarros() throws RemoteException;
+  ArrayList<Carro> listarCarros() throws RemoteException;
 
   String autenticarUser(Usuario usuario) throws RemoteException;
 }

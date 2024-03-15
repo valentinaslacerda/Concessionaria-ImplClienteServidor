@@ -2,8 +2,10 @@ package gerenciamento_carros;
 
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 
 import entidades.Carro;
 
@@ -27,7 +29,14 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
           qtd++;
         }
       }
+
+      for (Carro i : bancoDados.values()) {
+        if (carro.getNome().equals(i.getNome())) {
+          bancoDados.get(i.getRenavam()).setQtd(qtd);
+        }
+      }
       carro.setQtd(qtd);
+
       bancoDados.put(carro.getRenavam(), carro);
       return "carro registrado com sucesso";
     }
@@ -37,12 +46,12 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   @Override
   public String removerCarro(String renavam) throws RemoteException {
     if (bancoDados != null) {
-      for (String i : bancoDados.keySet()) {
-        if (i.equals(renavam)) {
+      for (String key : bancoDados.keySet()) {
+        if (key.equals(renavam)) { // se carro existe
           for (Carro carro : bancoDados.values()) {
             if (carro.getNome().equals(bancoDados.get(renavam).getNome())) {
-              int qtd = bancoDados.get(renavam).getQtd();
-              bancoDados.get(renavam).setQtd(qtd--);
+              int qtd = bancoDados.get(carro.getRenavam()).getQtd();
+              bancoDados.get(carro.getRenavam()).setQtd(qtd - 1);
             }
           }
           bancoDados.remove(renavam);
@@ -79,9 +88,16 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   }
 
   @Override
-  public List<Carro> listarCarros() throws RemoteException {
-
-    throw new UnsupportedOperationException("Unimplemented method 'listarCarros'");
+  public ArrayList<Carro> listarCarros() throws RemoteException {
+    ArrayList<Carro> listaCarros = new ArrayList<Carro>();
+    if (!bancoDados.isEmpty()) {
+      for (Carro carro : bancoDados.values()) {
+        listaCarros.add(carro);
+      }
+      Collections.sort(listaCarros, Comparator.comparing(Carro::getNome));
+      return listaCarros;
+    }
+    return null;
   }
 
 }
