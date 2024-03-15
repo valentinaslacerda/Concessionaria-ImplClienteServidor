@@ -59,19 +59,20 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
-  public Carro buscarCarroNome(String nome) throws RemoteException {
+  public ArrayList<Carro> buscarCarroNome(String nome) throws RemoteException {
 
-    throw new UnsupportedOperationException("Unimplemented method 'busCarroNome'");
+    return stubBanco.buscarCarroNome(nome);
+
   }
 
   @Override
-  public Carro buscarCarroRevavam(String renavam) throws RemoteException {
+  public Carro buscarCarroRenavam(String renavam) throws RemoteException {
 
-    throw new UnsupportedOperationException("Unimplemented method 'busCarroRevavam'");
+    return stubBanco.buscarCarroRenavam(renavam);
   }
 
   @Override
-  public Carro alterarCarro(Carro carro) throws RemoteException {
+  public String alterarCarro(String renavam, Carro carro) throws RemoteException {
 
     throw new UnsupportedOperationException("Unimplemented method 'alterarCarro'");
   }
@@ -101,6 +102,11 @@ public class ImplService extends UnicastRemoteObject implements Service {
     }
 
     return null;
+  }
+
+  @Override
+  public ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException {
+    return stubBanco.listarCarrosCategoria(categoria);
   }
 
 }

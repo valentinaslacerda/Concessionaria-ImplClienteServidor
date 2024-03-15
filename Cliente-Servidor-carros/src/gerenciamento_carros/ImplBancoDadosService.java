@@ -64,21 +64,63 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   }
 
   @Override
-  public Carro buscarCarroNome(String nome) throws RemoteException {
+  public ArrayList<Carro> buscarCarroNome(String nome) throws RemoteException {
+    ArrayList<Carro> listaCarros = new ArrayList<Carro>();
+    if (!bancoDados.isEmpty()) {
+      for (Carro carro : bancoDados.values()) {
+        if (carro.getNome().equals(nome)) {
+          listaCarros.add(carro);
+        }
 
-    throw new UnsupportedOperationException("Unimplemented method 'buscarCarroNome'");
+      }
+      if (listaCarros.isEmpty()) {
+        System.out.println("Não há carros nessa categoria");
+      } else {
+        Collections.sort(listaCarros, Comparator.comparing(Carro::getNome));
+        return listaCarros;
+      }
+
+    }
+    return null;
+
   }
 
   @Override
-  public Carro buscarCarroRevavam(String renavam) throws RemoteException {
-
-    throw new UnsupportedOperationException("Unimplemented method 'buscarCarroRevavam'");
+  public Carro buscarCarroRenavam(String renavam) throws RemoteException {
+    if (!bancoDados.isEmpty()) {
+      for (String key : bancoDados.keySet()) {
+        if (key.equals(renavam)) {
+          return bancoDados.get(key);
+        }
+      }
+      System.out.println("Não há carro com esse renavam cadastrado");
+    }
+    return null;
   }
 
   @Override
-  public Carro alterarCarro(Carro carro) throws RemoteException {
-
-    throw new UnsupportedOperationException("Unimplemented method 'alterarCarro'");
+  public String alterarCarro(String renavam, Carro carro) throws RemoteException {
+    Carro carroEncontrado = buscarCarroRenavam(renavam);
+    if (carroEncontrado != null) {
+      bancoDados.get(renavam).setNome(carro.getNome());
+      bancoDados.get(renavam).setRenavam(carro.getNome());
+      bancoDados.get(renavam).setPlaca(carro.getPlaca());
+      bancoDados.get(renavam).setCategoria(carro.getCategoria());
+      bancoDados.get(renavam).setAnoFab(carro.getAnoFab());
+      bancoDados.get(renavam).setPreco(carro.getPreco());
+      for (Carro veiculo : bancoDados.values()) {
+        if (veiculo.getNome().equals(carroEncontrado.getNome())) {
+          bancoDados.get(veiculo.getRenavam()).setQtd(veiculo.getQtd() - 1);
+        }
+      }
+      for (Carro veiculo : bancoDados.values()) {
+        if (veiculo.getNome().equals(carro.getNome())) { // se nome é igual novo nome
+          bancoDados.get(veiculo.getRenavam()).setQtd(veiculo.getQtd() + 1);
+        }
+      }
+      return "Carro alterado com sucesso";
+    }
+    return "Carro que você está tentando alterar não existe";
   }
 
   @Override
@@ -98,6 +140,39 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
       return listaCarros;
     }
     return null;
+  }
+
+  @Override
+  public ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException {
+    ArrayList<Carro> listaCarros = new ArrayList<Carro>();
+    if (!bancoDados.isEmpty()) {
+      for (Carro carro : bancoDados.values()) {
+        if (carro.getCategoria().equals(categoria)) {
+          listaCarros.add(carro);
+        }
+
+      }
+      if (listaCarros.isEmpty()) {
+        System.out.println("Não há carros nessa categoria");
+      } else {
+        return listaCarros;
+      }
+
+    }
+    return null;
+  }
+
+  @Override
+  public void alterarQtdPorNome(String nome, String novoNome) throws RemoteException {
+    if (!bancoDados.isEmpty()) {
+      for (Carro carro : bancoDados.values()) {
+        if (carro.getNome().equals(nome)) {
+          bancoDados.get(carro.getRenavam()).setQtd(carro.getQtd() - 1);
+        }
+      }
+
+    }
+
   }
 
 }

@@ -11,14 +11,17 @@ public interface BancoDadosService extends Remote {
 
   String removerCarro(String renavam) throws RemoteException;
 
-  Carro buscarCarroNome(String nome) throws RemoteException;
+  ArrayList<Carro> buscarCarroNome(String nome) throws RemoteException;
 
-  Carro buscarCarroRevavam(String renavam) throws RemoteException;
+  Carro buscarCarroRenavam(String renavam) throws RemoteException;
 
-  Carro alterarCarro(Carro carro) throws RemoteException;
+  String alterarCarro(String renavam, Carro carro) throws RemoteException;
 
   int checarQtd() throws RemoteException;
 
+  void alterarQtdPorNome(String nome, String novoNome) throws RemoteException;
+
   ArrayList<Carro> listarCarros() throws RemoteException;
 
+  ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException;
 }
