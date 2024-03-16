@@ -74,7 +74,7 @@ public class ImplService extends UnicastRemoteObject implements Service {
   @Override
   public String alterarCarro(String renavam, Carro carro) throws RemoteException {
 
-    throw new UnsupportedOperationException("Unimplemented method 'alterarCarro'");
+    return stubBanco.alterarCarro(renavam, carro);
   }
 
   @Override

@@ -29,7 +29,12 @@ public class Cliente {
         if (acesso == null) {
           System.out.println("Usuário não encontrado");
         } else if (acesso.equals("funcionario")) {
-
+          stub.adicionarCarro(new Carro("12345678901", "abc-1234", "audi", "economico", 2012, 654321, 1));
+          stub.adicionarCarro(new Carro("12245678901", "bbc-1234", "fiat", "economico", 2022, 654321, 1));
+          stub.adicionarCarro(new Carro("11345678901", "ccc-1211", "fiat", "imp", 2012, 834321, 1));
+          stub.adicionarCarro(new Carro("12344678901", "aac-1234", "uno", "imp", 2010, 954321, 1));
+          stub.adicionarCarro(new Carro("12345668901", "abc-4444", "gol", "popular", 2013, 784321, 1));
+          stub.adicionarCarro(new Carro("12345778901", "abc-2334", "palio", "imp", 2018, 954321, 1));
           while (execucao) {
             System.out.println("\n============Painel Funcionário============");
             System.out.println("[1] Adicionar carro");

@@ -11,6 +11,7 @@ import entidades.Carro;
 
 public class ImplBancoDadosService extends UnicastRemoteObject implements BancoDadosService {
   HashMap<String, Carro> bancoDados = new HashMap<String, Carro>();
+  int qtdTotal = 0;
 
   public ImplBancoDadosService() throws RemoteException {
     super();
@@ -38,6 +39,7 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
       carro.setQtd(qtd);
 
       bancoDados.put(carro.getRenavam(), carro);
+      ++qtdTotal;
       return "carro registrado com sucesso";
     }
     return null;
@@ -55,6 +57,7 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
             }
           }
           bancoDados.remove(renavam);
+          ++qtdTotal;
           return "carro removido com sucesso";
         }
       }
@@ -101,13 +104,8 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   @Override
   public String alterarCarro(String renavam, Carro carro) throws RemoteException {
     Carro carroEncontrado = buscarCarroRenavam(renavam);
+
     if (carroEncontrado != null) {
-      bancoDados.get(renavam).setNome(carro.getNome());
-      bancoDados.get(renavam).setRenavam(carro.getNome());
-      bancoDados.get(renavam).setPlaca(carro.getPlaca());
-      bancoDados.get(renavam).setCategoria(carro.getCategoria());
-      bancoDados.get(renavam).setAnoFab(carro.getAnoFab());
-      bancoDados.get(renavam).setPreco(carro.getPreco());
       for (Carro veiculo : bancoDados.values()) {
         if (veiculo.getNome().equals(carroEncontrado.getNome())) {
           bancoDados.get(veiculo.getRenavam()).setQtd(veiculo.getQtd() - 1);
@@ -116,8 +114,18 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
       for (Carro veiculo : bancoDados.values()) {
         if (veiculo.getNome().equals(carro.getNome())) { // se nome é igual novo nome
           bancoDados.get(veiculo.getRenavam()).setQtd(veiculo.getQtd() + 1);
+          // altera qtd para novo carro
+          bancoDados.get(renavam).setQtd(veiculo.getQtd());
         }
       }
+
+      bancoDados.get(renavam).setNome(carro.getNome());
+      bancoDados.get(renavam).setRenavam(carro.getRenavam());
+      bancoDados.get(renavam).setPlaca(carro.getPlaca());
+      bancoDados.get(renavam).setCategoria(carro.getCategoria());
+      bancoDados.get(renavam).setAnoFab(carro.getAnoFab());
+      bancoDados.get(renavam).setPreco(carro.getPreco());
+
       return "Carro alterado com sucesso";
     }
     return "Carro que você está tentando alterar não existe";
@@ -125,8 +133,7 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
 
   @Override
   public int checarQtd() throws RemoteException {
-
-    throw new UnsupportedOperationException("Unimplemented method 'checarQtd'");
+    return qtdTotal;
   }
 
   @Override
