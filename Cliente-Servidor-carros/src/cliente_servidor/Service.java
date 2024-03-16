@@ -25,4 +25,6 @@ public interface Service extends Remote {
   ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException;
 
   String autenticarUser(Usuario usuario) throws RemoteException;
+
+  Carro comprarCarro(String renavam) throws RemoteException;
 }

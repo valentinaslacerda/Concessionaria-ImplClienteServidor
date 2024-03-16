@@ -80,7 +80,7 @@ public class ImplService extends UnicastRemoteObject implements Service {
   @Override
   public int checarQtd() throws RemoteException {
 
-    throw new UnsupportedOperationException("Unimplemented method 'checarQtd'");
+    return stubBanco.checarQtd();
   }
 
   @Override
@@ -107,6 +107,11 @@ public class ImplService extends UnicastRemoteObject implements Service {
   @Override
   public ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException {
     return stubBanco.listarCarrosCategoria(categoria);
+  }
+
+  @Override
+  public Carro comprarCarro(String renavam) throws RemoteException {
+    return stubBanco.comprarCarro(renavam);
   }
 
 }

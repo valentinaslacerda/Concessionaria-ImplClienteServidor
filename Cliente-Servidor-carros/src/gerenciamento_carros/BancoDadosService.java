@@ -24,4 +24,6 @@ public interface BancoDadosService extends Remote {
   ArrayList<Carro> listarCarros() throws RemoteException;
 
   ArrayList<Carro> listarCarrosCategoria(String categoria) throws RemoteException;
+
+  Carro comprarCarro(String renavam) throws RemoteException;
 }

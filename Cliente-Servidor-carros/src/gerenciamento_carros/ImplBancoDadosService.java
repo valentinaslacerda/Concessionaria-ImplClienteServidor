@@ -182,4 +182,14 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
 
   }
 
+  @Override
+  public Carro comprarCarro(String renavam) throws RemoteException {
+    Carro carroEncontrado = buscarCarroRenavam(renavam);
+    if (carroEncontrado != null) {
+      System.out.println(removerCarro(renavam));
+      return carroEncontrado;
+    }
+    return null;
+  }
+
 }
