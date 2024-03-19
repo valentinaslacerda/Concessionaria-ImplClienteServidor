@@ -77,14 +77,12 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
 
       }
       if (listaCarros.isEmpty()) {
-        System.out.println("Não há carros nessa categoria");
-      } else {
-        Collections.sort(listaCarros, Comparator.comparing(Carro::getNome));
-        return listaCarros;
+        System.out.println("Não há carros desse modelo");
+        return null;
       }
 
     }
-    return null;
+    return listaCarros;
 
   }
 
@@ -137,7 +135,7 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
     for (Carro carro : bancoDados.values()) {
       estoque.put(carro.getNome(), carro.getQtd());
     }
-    estoque.put("Total", qtdTotal);
+    estoque.put("total", qtdTotal);
     return estoque;
   }
 

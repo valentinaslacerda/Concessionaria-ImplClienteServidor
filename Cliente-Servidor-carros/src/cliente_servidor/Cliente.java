@@ -18,10 +18,10 @@ public class Cliente {
       Service stub = (Service) registro.lookup("Service");
       while (true) {
         System.out.println("Usuário: ");
-        String inputUser = scanner.nextLine();
+        String inputUser = scanner.next();
 
         System.out.println("Senha: ");
-        String inputSenha = scanner.nextLine();
+        String inputSenha = scanner.next();
 
         Usuario user = new Usuario(inputUser, inputSenha, null);
         String acesso = stub.autenticarUser(user);
@@ -86,8 +86,9 @@ public class Cliente {
               case 3:
                 System.out.println("Nome do modelo: ");
                 nome = scanner.next();
-                if (stub.removerCarroPorNome(nome) != null) {
-                  System.out.println(stub.removerCarroPorNome(nome));
+                String resposta = stub.removerCarroPorNome(nome);
+                if (resposta != null) {
+                  System.out.println(resposta);
                 } else {
                   System.out.println("Não há estoque desse modelo");
                 }
