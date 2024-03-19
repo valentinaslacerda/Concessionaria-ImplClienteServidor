@@ -3,6 +3,7 @@ package cliente_servidor;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 import entidades.Carro;
@@ -39,13 +40,14 @@ public class Cliente {
             System.out.println("\n============Painel Funcionário============");
             System.out.println("[1] Adicionar carro");
             System.out.println("[2] Apagar carro");
-            System.out.println("[3] Listar carros");
-            System.out.println("[4] Listar carros por categoria");
-            System.out.println("[5] Pesquisar carro por nome");
-            System.out.println("[6] Pesquisar carro por renavam");
-            System.out.println("[7] Alterar carro");
-            System.out.println("[8] Exibir quantidade de carros");
-            System.out.println("[9] Comprar carro");
+            System.out.println("[3] Apagar estoque de carro");
+            System.out.println("[4] Listar carros");
+            System.out.println("[5] Listar carros por categoria");
+            System.out.println("[6] Pesquisar carro por nome");
+            System.out.println("[7] Pesquisar carro por renavam");
+            System.out.println("[8] Alterar carro");
+            System.out.println("[9] Exibir quantidade de carros");
+            System.out.println("[10] Comprar carro");
             System.out.println("[0] Sair");
             int escolha = scanner.nextInt();
             switch (escolha) {
@@ -82,6 +84,17 @@ public class Cliente {
                 break;
 
               case 3:
+                System.out.println("Nome do modelo: ");
+                nome = scanner.next();
+                if (stub.removerCarroPorNome(nome) != null) {
+                  System.out.println(stub.removerCarroPorNome(nome));
+                } else {
+                  System.out.println("Não há estoque desse modelo");
+                }
+
+                break;
+
+              case 4:
                 ArrayList<Carro> carros = new ArrayList<Carro>();
                 carros = stub.listarCarros();
                 if (carros != null) {
@@ -105,7 +118,7 @@ public class Cliente {
                   System.out.println("Não há carro cadastrado");
                 }
                 break;
-              case 4:
+              case 5:
                 ArrayList<Carro> carrosCategoria = new ArrayList<Carro>();
                 System.out.println("Categoria: ");
                 categoria = scanner.next();
@@ -132,7 +145,7 @@ public class Cliente {
                 }
                 break;
 
-              case 5:
+              case 6:
                 ArrayList<Carro> carrosPorNome = new ArrayList<Carro>();
                 System.out.println("Nome: ");
                 nome = scanner.next();
@@ -158,7 +171,7 @@ public class Cliente {
                   System.out.println("Não há carro cadastrado desse modelo");
                 }
                 break;
-              case 6:
+              case 7:
                 System.out.println("Renavam: ");
                 renavam = scanner.next();
                 Carro carroPorRenavam = stub.buscarCarroRenavam(renavam);
@@ -182,7 +195,7 @@ public class Cliente {
                   System.out.println("Não há carro cadastrado com esse renavam");
                 }
                 break;
-              case 7:
+              case 8:
                 System.out.println("Digite renavam do carro que você deseja alterar: ");
                 String renavamAlterar = scanner.next();
 
@@ -206,10 +219,14 @@ public class Cliente {
                 Carro carroAlterado = new Carro(renavam, placa, nome, categoria, anoFab, preco, 1);
                 System.out.println(stub.alterarCarro(renavamAlterar, carroAlterado));
                 break;
-              case 8:
-                System.out.println("Quantidade de carros: " + stub.checarQtd());
-                break;
               case 9:
+                HashMap<String, Integer> estoque = stub.checarQtd();
+                for (String modelo : estoque.keySet()) {
+                  System.out.println(modelo + ": " + estoque.get(modelo));
+                }
+
+                break;
+              case 10:
                 System.out.println("Informe o renavam do carro que deseja comprar: ");
                 renavam = scanner.next();
                 carro = stub.comprarCarro(renavam);

@@ -57,7 +57,7 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
             }
           }
           bancoDados.remove(renavam);
-          ++qtdTotal;
+          --qtdTotal;
           return "carro removido com sucesso";
         }
       }
@@ -132,8 +132,13 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   }
 
   @Override
-  public int checarQtd() throws RemoteException {
-    return qtdTotal;
+  public HashMap<String, Integer> checarQtd() throws RemoteException {
+    HashMap<String, Integer> estoque = new HashMap<String, Integer>();
+    for (Carro carro : bancoDados.values()) {
+      estoque.put(carro.getNome(), carro.getQtd());
+    }
+    estoque.put("Total", qtdTotal);
+    return estoque;
   }
 
   @Override
@@ -170,24 +175,24 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
   }
 
   @Override
-  public void alterarQtdPorNome(String nome, String novoNome) throws RemoteException {
-    if (!bancoDados.isEmpty()) {
-      for (Carro carro : bancoDados.values()) {
-        if (carro.getNome().equals(nome)) {
-          bancoDados.get(carro.getRenavam()).setQtd(carro.getQtd() - 1);
-        }
-      }
-
-    }
-
-  }
-
-  @Override
   public Carro comprarCarro(String renavam) throws RemoteException {
     Carro carroEncontrado = buscarCarroRenavam(renavam);
     if (carroEncontrado != null) {
       System.out.println(removerCarro(renavam));
       return carroEncontrado;
+    }
+    return null;
+  }
+
+  @Override
+  public String removerCarroPorNome(String nome) throws RemoteException {
+    ArrayList<Carro> carrosEncontrados = buscarCarroNome(nome);
+    if (carrosEncontrados.size() != 0) {
+      for (Carro carro : carrosEncontrados) {
+        removerCarro(carro.getRenavam());
+        --qtdTotal;
+      }
+      return "Todo estoque de carros removidos com sucesso.";
     }
     return null;
   }

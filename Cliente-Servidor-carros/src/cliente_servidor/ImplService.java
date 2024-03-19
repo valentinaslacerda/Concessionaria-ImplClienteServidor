@@ -6,6 +6,8 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import autenticacao.AutenticacaoService;
 import entidades.Carro;
 import entidades.Usuario;
@@ -59,6 +61,11 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
+  public String removerCarroPorNome(String nome) throws RemoteException {
+    return stubBanco.removerCarroPorNome(nome);
+  }
+
+  @Override
   public ArrayList<Carro> buscarCarroNome(String nome) throws RemoteException {
 
     return stubBanco.buscarCarroNome(nome);
@@ -78,7 +85,7 @@ public class ImplService extends UnicastRemoteObject implements Service {
   }
 
   @Override
-  public int checarQtd() throws RemoteException {
+  public HashMap<String, Integer> checarQtd() throws RemoteException {
 
     return stubBanco.checarQtd();
   }
