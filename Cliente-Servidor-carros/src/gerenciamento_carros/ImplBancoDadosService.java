@@ -188,7 +188,6 @@ public class ImplBancoDadosService extends UnicastRemoteObject implements BancoD
     if (carrosEncontrados.size() != 0) {
       for (Carro carro : carrosEncontrados) {
         removerCarro(carro.getRenavam());
-        --qtdTotal;
       }
       return "Todo estoque de carros removidos com sucesso.";
     }

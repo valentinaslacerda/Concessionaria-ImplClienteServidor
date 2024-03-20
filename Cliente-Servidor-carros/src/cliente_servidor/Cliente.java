@@ -19,9 +19,11 @@ public class Cliente {
       while (true) {
         System.out.println("Usuário: ");
         String inputUser = scanner.next();
+        scanner.nextLine();
 
         System.out.println("Senha: ");
         String inputSenha = scanner.next();
+        scanner.nextLine();
 
         Usuario user = new Usuario(inputUser, inputSenha, null);
         String acesso = stub.autenticarUser(user);
@@ -30,12 +32,16 @@ public class Cliente {
         if (acesso == null) {
           System.out.println("Usuário não encontrado");
         } else if (acesso.equals("funcionario")) {
-          stub.adicionarCarro(new Carro("12345678901", "abc-1234", "audi", "economico", 2012, 654321, 1));
-          stub.adicionarCarro(new Carro("12245678901", "bbc-1234", "fiat", "economico", 2022, 654321, 1));
-          stub.adicionarCarro(new Carro("11345678901", "ccc-1211", "fiat", "imp", 2012, 834321, 1));
-          stub.adicionarCarro(new Carro("12344678901", "aac-1234", "uno", "imp", 2010, 954321, 1));
-          stub.adicionarCarro(new Carro("12345668901", "abc-4444", "gol", "popular", 2013, 784321, 1));
-          stub.adicionarCarro(new Carro("12345778901", "abc-2334", "palio", "imp", 2018, 954321, 1));
+          stub.adicionarCarro(new Carro("12345678901", "abc-1234", "fiat novo uno", "economico", 2012, 654321, 1));
+          stub.adicionarCarro(new Carro("12245678901", "bbc-1234", "chevrolet onix", "economico", 2022, 654321, 1));
+          stub.adicionarCarro(new Carro("11345678901", "ccc-1211", "ford ka", "economico", 2012, 834321, 1));
+          stub.adicionarCarro(new Carro("12344678901", "aac-1234", "ford ka sedan", "intermediario", 2010, 954321, 1));
+          stub.adicionarCarro(
+              new Carro("12345668901", "abc-4444", "chevrolet onix plus", "intermediario", 2013, 784321, 1));
+          stub.adicionarCarro(new Carro("12345778901", "abc-2334", "toyota etios", "intermediario", 2018, 954321, 1));
+          stub.adicionarCarro(new Carro("12344478901", "aac-1234", "toyota corolla", "executivo", 2010, 954321, 1));
+          stub.adicionarCarro(new Carro("12345666901", "abc-4444", "honda civic", "executivo", 2013, 784321, 1));
+          stub.adicionarCarro(new Carro("02045778901", "abc-2334", "audi a3", "executivo", 2018, 954321, 1));
           while (execucao) {
             System.out.println("\n============Painel Funcionário============");
             System.out.println("[1] Adicionar carro");
@@ -50,6 +56,7 @@ public class Cliente {
             System.out.println("[10] Comprar carro");
             System.out.println("[0] Sair");
             int escolha = scanner.nextInt();
+            scanner.nextLine();
             switch (escolha) {
               case 0:
                 System.out.println("Sessão encerrada");
@@ -57,20 +64,23 @@ public class Cliente {
                 break;
               case 1:
                 System.out.println("Nome do carro: ");
-                String nome = scanner.next();
+                String nome = scanner.nextLine();
 
                 System.out.println("Categoria: ");
                 String categoria = scanner.next();
+                scanner.nextLine();
 
                 System.out.println("Renavam: ");
                 String renavam = scanner.next();
+                scanner.nextLine();
 
                 System.out.println("Placa: ");
                 String placa = scanner.next();
+                scanner.nextLine();
 
                 System.out.println("Ano de fabricação: ");
                 int anoFab = scanner.nextInt();
-
+                scanner.nextLine();
                 System.out.println("Preço: ");
                 double preco = scanner.nextDouble();
                 Carro carro = new Carro(renavam, placa, nome, categoria, anoFab, preco, 1);
@@ -80,12 +90,13 @@ public class Cliente {
               case 2:
                 System.out.println("Renavam: ");
                 String renavamRemover = scanner.next();
+                scanner.nextLine();
                 System.out.println(stub.removerCarro(renavamRemover));
                 break;
 
               case 3:
                 System.out.println("Nome do modelo: ");
-                nome = scanner.next();
+                nome = scanner.nextLine();
                 String resposta = stub.removerCarroPorNome(nome);
                 if (resposta != null) {
                   System.out.println(resposta);
@@ -123,6 +134,7 @@ public class Cliente {
                 ArrayList<Carro> carrosCategoria = new ArrayList<Carro>();
                 System.out.println("Categoria: ");
                 categoria = scanner.next();
+                scanner.nextLine();
                 carrosCategoria = stub.listarCarrosCategoria(categoria);
                 if (carrosCategoria != null) {
                   for (Carro veiculo : carrosCategoria) {
@@ -149,7 +161,7 @@ public class Cliente {
               case 6:
                 ArrayList<Carro> carrosPorNome = new ArrayList<Carro>();
                 System.out.println("Nome: ");
-                nome = scanner.next();
+                nome = scanner.nextLine();
                 carrosPorNome = stub.buscarCarroNome(nome);
                 if (carrosPorNome != null) {
                   for (Carro veiculo : carrosPorNome) {
@@ -175,6 +187,7 @@ public class Cliente {
               case 7:
                 System.out.println("Renavam: ");
                 renavam = scanner.next();
+                scanner.nextLine();
                 Carro carroPorRenavam = stub.buscarCarroRenavam(renavam);
                 if (carroPorRenavam != null) {
                   System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
@@ -199,24 +212,26 @@ public class Cliente {
               case 8:
                 System.out.println("Digite renavam do carro que você deseja alterar: ");
                 String renavamAlterar = scanner.next();
-
+                scanner.nextLine();
                 System.out.println("Alterar nome do carro: ");
                 nome = scanner.next();
-
+                scanner.nextLine();
                 System.out.println("Alterar categoria: ");
                 categoria = scanner.next();
-
+                scanner.nextLine();
                 System.out.println("Alterar renavam: ");
                 renavam = scanner.next();
-
+                scanner.nextLine();
                 System.out.println("Alterar placa: ");
                 placa = scanner.next();
-
+                scanner.nextLine();
                 System.out.println("Alterar ano de fabricação: ");
                 anoFab = scanner.nextInt();
+                scanner.nextLine();
 
                 System.out.println("Alterar preço: ");
                 preco = scanner.nextDouble();
+                scanner.nextLine();
                 Carro carroAlterado = new Carro(renavam, placa, nome, categoria, anoFab, preco, 1);
                 System.out.println(stub.alterarCarro(renavamAlterar, carroAlterado));
                 break;
@@ -230,6 +245,7 @@ public class Cliente {
               case 10:
                 System.out.println("Informe o renavam do carro que deseja comprar: ");
                 renavam = scanner.next();
+                scanner.nextLine();
                 carro = stub.comprarCarro(renavam);
                 if (carro != null) {
                   System.out.println("Compra efetuada. Informações do veículo: ");
@@ -264,6 +280,7 @@ public class Cliente {
             System.out.println("[6] Comprar carro");
             System.out.println("[0] Sair");
             int escolha = scanner.nextInt();
+            scanner.nextLine();
             switch (escolha) {
               case 0:
                 System.out.println("Sessão encerrada");
@@ -298,6 +315,7 @@ public class Cliente {
                 ArrayList<Carro> carrosCategoria = new ArrayList<Carro>();
                 System.out.println("Categoria: ");
                 String categoria = scanner.next();
+                scanner.nextLine();
                 carrosCategoria = stub.listarCarrosCategoria(categoria);
                 if (carrosCategoria != null) {
                   for (Carro veiculo : carrosCategoria) {
@@ -325,6 +343,7 @@ public class Cliente {
                 ArrayList<Carro> carrosPorNome = new ArrayList<Carro>();
                 System.out.println("Nome: ");
                 String nome = scanner.next();
+                scanner.nextLine();
                 carrosPorNome = stub.buscarCarroNome(nome);
                 if (carrosPorNome != null) {
                   for (Carro veiculo : carrosPorNome) {
@@ -350,6 +369,7 @@ public class Cliente {
               case 4:
                 System.out.println("Renavam: ");
                 String renavam = scanner.next();
+                scanner.nextLine();
                 Carro carroPorRenavam = stub.buscarCarroRenavam(renavam);
                 if (carroPorRenavam != null) {
                   System.out.println("+++++++++++++++++++++++++++++++++++++++++++++++");
@@ -377,6 +397,7 @@ public class Cliente {
               case 6:
                 System.out.println("Informe o renavam do carro que deseja comprar: ");
                 renavam = scanner.next();
+                scanner.nextLine();
                 Carro carro = stub.comprarCarro(renavam);
                 if (carro != null) {
                   System.out.println("Compra efetuada. Informações do veículo: ");
